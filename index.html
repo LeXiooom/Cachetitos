@@ -26,7 +26,30 @@
 
   <!-- Galería -->
   <main id="memoryGrid" class="p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto mt-6">
-    <!-- Se llenará dinámicamente -->
+    <!-- Recuerdos fijos -->
+    <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
+      <img src="https://i.imgur.com/7rQSDuvh.jpg" alt="Entrenando" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">Sudando juntos, creciendo</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Cada gota de esfuerzo me recuerda lo fuerte que somos cuando estamos juntos. Así, entrenando, nos hacemos más invencibles.</p>
+      </div>
+    </div>
+
+    <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
+      <img src="https://i.imgur.com/a68Wo5Kh.jpg" alt="Patinando" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">Rodando sin miedo</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Patinando con vos, sintiendo la libertad y la alegría que sólo tu compañía me da. Momentos que siempre quiero repetir.</p>
+      </div>
+    </div>
+
+    <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
+      <img src="https://i.imgur.com/zaY9N85h.jpg" alt="Salida" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">Esa salida que nunca olvido</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Esa noche caminando sin prisa, hablando de todo y nada, sintiendo que contigo el tiempo se detiene y todo está perfecto.</p>
+      </div>
+    </div>
   </main>
 
   <!-- Pie de página -->
@@ -73,7 +96,7 @@
 
     function loadMemories() {
       const memories = JSON.parse(localStorage.getItem("memories")) || [];
-      memoryGrid.innerHTML = "";
+      // Agregar dinámicamente después de los recuerdos fijos
       memories.forEach(mem => {
         memoryGrid.innerHTML += `
           <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
