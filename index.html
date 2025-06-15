@@ -3,107 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nuestros Recuerdos 💖</title>
+  <title>Recuerdos con Adri 🌸</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Quicksand', sans-serif; }
-    .dark body { background-color: #1f2937; }
-    .animate-fade-in { animation: fadeIn 0.3s ease-out; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    .dark body { background-color: #0f172a; }
+    .card:hover { transform: scale(1.02); }
   </style>
 </head>
-<body class="bg-pink-50 dark:bg-gray-900 text-gray-800 dark:text-pink-100 transition duration-300">
+<body class="bg-[#fffafc] dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 transition duration-300">
 
   <!-- Encabezado -->
-  <header class="text-center py-8 bg-pink-300 dark:bg-gray-800 rounded-b-3xl shadow-md relative">
-    <h1 class="text-4xl font-bold text-white drop-shadow-md">💖 Nuestros Recuerdos</h1>
-    <p class="text-pink-100 text-lg mt-2">Un diario visual de todo lo bonito que hemos vivido</p>
-    <div class="absolute right-6 bottom-4 flex items-center gap-2">
-      <button onclick="openModal()" class="bg-white text-pink-600 font-semibold px-4 py-2 rounded-full shadow-md hover:bg-pink-100 transition">+ Recuerdo</button>
-      <button onclick="toggleMode()" class="bg-pink-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full p-2 shadow hover:scale-105 transition">🌙</button>
+  <header class="py-8 px-6 text-center bg-pink-100 dark:bg-gray-800 shadow-md rounded-b-3xl">
+    <h1 class="text-4xl font-semibold text-pink-600 dark:text-pink-300">Nuestros Momentos 💗</h1>
+    <p class="mt-2 text-gray-600 dark:text-gray-400 text-sm">Cada recuerdo aquí tiene un pedacito de nosotros</p>
+    <div class="mt-4 flex justify-center gap-4">
+      <button onclick="openModal()" class="bg-pink-500 text-white px-4 py-2 rounded-full hover:bg-pink-600 transition">+ Añadir Recuerdo</button>
+      <button onclick="toggleMode()" class="bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-full p-2 shadow hover:scale-105 transition">🌙</button>
     </div>
   </header>
 
-  <!-- Recuerdos -->
-  <main class="p-4 md:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-
-    <!-- Recuerdo 1 -->
-    <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-      <img src="https://i.imgur.com/7rQSDuvh.jpg" alt="Entrenando juntos" class="w-full h-64 object-cover">
-      <div class="p-4">
-        <h2 class="text-xl font-semibold text-pink-600 dark:text-pink-400">Entrenando juntos 💪</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Un momento que parece simple, pero para mí fue especial. Me hiciste sentir motivado, enfocado... y feliz. Estabas ahí conmigo, y eso lo cambió todo.</p>
-      </div>
-    </div>
-
-    <!-- Recuerdo 2 -->
-    <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-      <img src="https://i.imgur.com/a68Wo5Kh.jpg" alt="Patinando" class="w-full h-64 object-cover">
-      <div class="p-4">
-        <h2 class="text-xl font-semibold text-pink-600 dark:text-pink-400">Patinando 🛼</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Ese día estabas tan feliz, y yo no podía dejar de mirarte. Nos reímos tanto, te caíste pero te levantaste con esa sonrisa tuya que me encanta. Un día simple, pero se quedó grabado en mi mente.</p>
-      </div>
-    </div>
-
-    <!-- Recuerdo 3 -->
-    <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-      <img src="https://i.imgur.com/zaY9N85h.jpg" alt="Salidita especial" class="w-full h-64 object-cover">
-      <div class="p-4">
-        <h2 class="text-xl font-semibold text-pink-600 dark:text-pink-400">Salidita especial ✨</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">No fue cualquier salida. Ese día solo quería que el tiempo se detuviera un rato más. Mirarte, hablarte, abrazarte... me hizo olvidar todo lo demás.</p>
-      </div>
-    </div>
-
+  <!-- Galería -->
+  <main id="memoryGrid" class="p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto mt-6">
+    <!-- Se llenará dinámicamente -->
   </main>
 
   <!-- Pie de página -->
-  <footer class="text-center mt-10 p-6 bg-pink-200 dark:bg-gray-800 rounded-t-3xl shadow-inner">
-    <p class="text-pink-800 dark:text-pink-200 text-sm">Gracias por vivir esto conmigo, Adri. Cada momento contigo es único 💞</p>
-    <p class="text-pink-700 dark:text-pink-300 text-xs mt-1">— Tu compae que te ama 😘</p>
+  <footer class="text-center mt-12 p-6 text-sm text-gray-500 dark:text-gray-400">
+    Hecho con cariño para ti, Adri 💕 — <span class="text-pink-500">by Aarom</span>
   </footer>
 
-  <!-- Modal para nuevo recuerdo -->
+  <!-- Modal -->
   <div id="modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
-    <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-md shadow-xl animate-fade-in text-gray-800 dark:text-white">
-      <h2 class="text-2xl font-bold text-pink-600 dark:text-pink-300 mb-4 text-center">Nuevo Recuerdo 💌</h2>
-      <form class="space-y-4">
-        <input type="text" placeholder="Título del recuerdo" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" required>
-        <input type="date" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" required>
-        <input type="file" accept="image/*" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2">
-        <textarea placeholder="Descripción del momento" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" rows="3"></textarea>
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-xl bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600">Cancelar</button>
-          <button type="submit" class="px-4 py-2 rounded-xl bg-pink-500 text-white hover:bg-pink-600">Guardar</button>
+    <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-xl w-full max-w-md text-gray-800 dark:text-white">
+      <h2 class="text-xl font-semibold mb-4 text-center text-pink-600 dark:text-pink-300">Nuevo recuerdo ✨</h2>
+      <form id="memoryForm" class="space-y-4">
+        <input id="titleInput" type="text" placeholder="Título bonito..." class="w-full rounded-lg p-2 border border-pink-300 dark:border-gray-600 bg-white dark:bg-gray-800" required>
+        <input id="dateInput" type="date" class="w-full rounded-lg p-2 border border-pink-300 dark:border-gray-600 bg-white dark:bg-gray-800" required>
+        <input id="imageInput" type="file" accept="image/*" class="w-full rounded-lg p-2 border border-pink-300 dark:border-gray-600 bg-white dark:bg-gray-800">
+        <textarea id="descInput" rows="3" placeholder="Describe lo que vivimos..." class="w-full rounded-lg p-2 border border-pink-300 dark:border-gray-600 bg-white dark:bg-gray-800" required></textarea>
+        <div class="flex justify-end gap-2">
+          <button type="button" onclick="closeModal()" class="bg-gray-300 dark:bg-gray-700 px-4 py-2 rounded-lg">Cancelar</button>
+          <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600">Guardar</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Script para funciones -->
   <script>
-    function openModal() {
-      document.getElementById('modal').classList.remove('hidden');
-    }
-    function closeModal() {
-      document.getElementById('modal').classList.add('hidden');
-    }
+    const memoryGrid = document.getElementById("memoryGrid");
+    const modal = document.getElementById("modal");
+    const form = document.getElementById("memoryForm");
+
+    function openModal() { modal.classList.remove("hidden"); }
+    function closeModal() { modal.classList.add("hidden"); form.reset(); }
+
     function toggleMode() {
       const html = document.documentElement;
       html.classList.toggle('dark');
       localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
     }
-    window.onload = () => {
+
+    function loadTheme() {
       if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.add('dark');
       }
     }
+
+    function loadMemories() {
+      const memories = JSON.parse(localStorage.getItem("memories")) || [];
+      memoryGrid.innerHTML = "";
+      memories.forEach(mem => {
+        memoryGrid.innerHTML += `
+          <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
+            <img src="${mem.image}" alt="recuerdo" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">${mem.title}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400">${mem.date}</p>
+              <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">${mem.description}</p>
+            </div>
+          </div>`;
+      });
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("titleInput").value;
+      const date = document.getElementById("dateInput").value;
+      const desc = document.getElementById("descInput").value;
+      const imageFile = document.getElementById("imageInput").files[0];
+      let image = "https://via.placeholder.com/400x300.png?text=Recuerdo";
+      if (imageFile) image = await toBase64(imageFile);
+      const newMemory = { title, date, description: desc, image };
+      const memories = JSON.parse(localStorage.getItem("memories")) || [];
+      memories.unshift(newMemory);
+      localStorage.setItem("memories", JSON.stringify(memories));
+      loadMemories();
+      closeModal();
+    });
+
+    const toBase64 = file => new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => res(reader.result);
+      reader.onerror = error => rej(error);
+    });
+
+    window.onload = () => {
+      loadTheme();
+      loadMemories();
+    }
   </script>
 
 </body>
-</html>
-
 </html>
