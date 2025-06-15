@@ -29,8 +29,35 @@
   </header>
 
   <!-- Recuerdos -->
-  <main id="memoryGrid" class="p-4 md:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-    <!-- Recuerdos iniciales -->
+  <main class="p-4 md:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+    <!-- Recuerdo 1 -->
+    <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+      <img src="https://i.imgur.com/7rQSDuvh.jpg" alt="Entrenando juntos" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h2 class="text-xl font-semibold text-pink-600 dark:text-pink-400">Entrenando juntos 💪</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Un momento que parece simple, pero para mí fue especial. Me hiciste sentir motivado, enfocado... y feliz. Estabas ahí conmigo, y eso lo cambió todo.</p>
+      </div>
+    </div>
+
+    <!-- Recuerdo 2 -->
+    <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+      <img src="https://i.imgur.com/a68Wo5Kh.jpg" alt="Patinando" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h2 class="text-xl font-semibold text-pink-600 dark:text-pink-400">Patinando 🛼</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Ese día estabas tan feliz, y yo no podía dejar de mirarte. Nos reímos tanto, te caíste pero te levantaste con esa sonrisa tuya que me encanta. Un día simple, pero se quedó grabado en mi mente.</p>
+      </div>
+    </div>
+
+    <!-- Recuerdo 3 -->
+    <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+      <img src="https://i.imgur.com/zaY9N85h.jpg" alt="Salidita especial" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h2 class="text-xl font-semibold text-pink-600 dark:text-pink-400">Salidita especial ✨</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">No fue cualquier salida. Ese día solo quería que el tiempo se detuviera un rato más. Mirarte, hablarte, abrazarte... me hizo olvidar todo lo demás.</p>
+      </div>
+    </div>
+
   </main>
 
   <!-- Pie de página -->
@@ -39,15 +66,15 @@
     <p class="text-pink-700 dark:text-pink-300 text-xs mt-1">— Tu compae que te ama 😘</p>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modal para nuevo recuerdo -->
   <div id="modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
     <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-md shadow-xl animate-fade-in text-gray-800 dark:text-white">
       <h2 class="text-2xl font-bold text-pink-600 dark:text-pink-300 mb-4 text-center">Nuevo Recuerdo 💌</h2>
-      <form id="memoryForm" class="space-y-4">
-        <input id="titleInput" type="text" placeholder="Título del recuerdo" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" required>
-        <input id="dateInput" type="date" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" required>
-        <input id="imageInput" type="file" accept="image/*" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2">
-        <textarea id="descInput" placeholder="Descripción del momento" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" rows="3" required></textarea>
+      <form class="space-y-4">
+        <input type="text" placeholder="Título del recuerdo" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" required>
+        <input type="date" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" required>
+        <input type="file" accept="image/*" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2">
+        <textarea placeholder="Descripción del momento" class="w-full border border-pink-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-2" rows="3"></textarea>
         <div class="flex justify-end gap-2 pt-2">
           <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-xl bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600">Cancelar</button>
           <button type="submit" class="px-4 py-2 rounded-xl bg-pink-500 text-white hover:bg-pink-600">Guardar</button>
@@ -56,80 +83,27 @@
     </div>
   </div>
 
+  <!-- Script para funciones -->
   <script>
-    const memoryGrid = document.getElementById("memoryGrid");
-    const modal = document.getElementById("modal");
-    const form = document.getElementById("memoryForm");
-
     function openModal() {
-      modal.classList.remove("hidden");
+      document.getElementById('modal').classList.remove('hidden');
     }
     function closeModal() {
-      modal.classList.add("hidden");
-      form.reset();
+      document.getElementById('modal').classList.add('hidden');
     }
-
     function toggleMode() {
       const html = document.documentElement;
       html.classList.toggle('dark');
       localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
     }
-
-    function loadTheme() {
+    window.onload = () => {
       if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.add('dark');
       }
     }
-
-    function loadMemories() {
-      const memories = JSON.parse(localStorage.getItem("memories")) || [];
-      memoryGrid.innerHTML = "";
-      memories.forEach(mem => {
-        const card = `
-          <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-            <img src="${mem.image}" alt="recuerdo" class="w-full h-64 object-cover">
-            <div class="p-4">
-              <h2 class="text-xl font-semibold text-pink-600 dark:text-pink-400">${mem.title}</h2>
-              <p class="text-xs text-gray-400 dark:text-gray-500 mb-1">${mem.date}</p>
-              <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">${mem.description}</p>
-            </div>
-          </div>`;
-        memoryGrid.innerHTML += card;
-      });
-    }
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const title = document.getElementById("titleInput").value;
-      const date = document.getElementById("dateInput").value;
-      const desc = document.getElementById("descInput").value;
-      const imageFile = document.getElementById("imageInput").files[0];
-
-      let image = "https://via.placeholder.com/400x300.png?text=Recuerdo"; // default
-      if (imageFile) {
-        image = await toBase64(imageFile);
-      }
-
-      const newMemory = { title, date, description: desc, image };
-      const memories = JSON.parse(localStorage.getItem("memories")) || [];
-      memories.unshift(newMemory);
-      localStorage.setItem("memories", JSON.stringify(memories));
-      loadMemories();
-      closeModal();
-    });
-
-    const toBase64 = file => new Promise((res, rej) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => res(reader.result);
-      reader.onerror = error => rej(error);
-    });
-
-    window.onload = () => {
-      loadTheme();
-      loadMemories();
-    }
   </script>
 
 </body>
+</html>
+
 </html>
