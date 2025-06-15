@@ -1,144 +1,120 @@
 <!DOCTYPE html>
-<html lang="es" class="transition duration-300">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Recuerdos con Adri 🌸</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌟 Nuestros Recuerdos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Quicksand', sans-serif; }
-    .dark body { background-color: #0f172a; }
-    .card:hover { transform: scale(1.02); transition: transform 0.3s ease; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fefefe;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #4a4a4a;
+    }
+
+    header p {
+      font-size: 1.1em;
+      color: #777;
+      margin-top: 10px;
+    }
+
+    .memory {
+      max-width: 800px;
+      margin: 0 auto 50px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .memory:hover {
+      transform: translateY(-5px);
+    }
+
+    .memory img {
+      width: 100%;
+      display: block;
+    }
+
+    .memory-text {
+      padding: 20px;
+    }
+
+    .memory-text h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .memory-text p {
+      font-size: 1em;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      .memory-text h2 {
+        font-size: 1.3em;
+      }
+
+      .memory-text p {
+        font-size: 0.95em;
+      }
+    }
   </style>
 </head>
-<body class="bg-[#fffafc] dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 transition duration-300">
-
-  <!-- Encabezado -->
-  <header class="py-8 px-6 text-center bg-pink-100 dark:bg-gray-800 shadow-md rounded-b-3xl">
-    <h1 class="text-4xl font-semibold text-pink-600 dark:text-pink-300">Nuestros Momentos 💗</h1>
-    <p class="mt-2 text-gray-600 dark:text-gray-400 text-sm">Cada recuerdo aquí tiene un pedacito de nosotros</p>
-    <div class="mt-4 flex justify-center gap-4">
-      <button onclick="openModal()" class="bg-pink-500 text-white px-4 py-2 rounded-full hover:bg-pink-600 transition">+ Añadir Recuerdo</button>
-      <button onclick="toggleMode()" class="bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-full p-2 shadow hover:scale-105 transition">🌙</button>
-    </div>
+<body>
+  <header>
+    <h1>🌟 Nuestros Recuerdos</h1>
+    <p>Un pedacito de todo lo que hemos vivido juntos, sin filtros ni cuentos, solo momentos reales que se sienten en el alma.</p>
   </header>
 
-  <!-- Galería -->
-  <main id="memoryGrid" class="p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto mt-6">
-    <!-- Los recuerdos se insertarán dinámicamente aquí -->
-  </main>
-
-  <!-- Pie de página -->
-  <footer class="text-center mt-12 p-6 text-sm text-gray-500 dark:text-gray-400">
-    Hecho con cariño para ti, Adri 💕 — <span class="text-pink-500">by Aarom</span>
-  </footer>
-
-  <!-- Modal -->
-  <div id="modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
-    <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-xl w-full max-w-md text-gray-800 dark:text-white">
-      <h2 class="text-xl font-semibold mb-4 text-center text-pink-600 dark:text-pink-300">Nuevo recuerdo ✨</h2>
-      <form id="memoryForm" class="space-y-4">
-        <input id="titleInput" type="text" placeholder="Título bonito..." class="w-full rounded-lg p-2 border border-pink-300 dark:border-gray-600 bg-white dark:bg-gray-800" required>
-        <input id="dateInput" type="date" class="w-full rounded-lg p-2 border border-pink-300 dark:border-gray-600 bg-white dark:bg-gray-800" required>
-        <input id="imageInput" type="file" accept="image/*" class="w-full rounded-lg p-2 border border-pink-300 dark:border-gray-600 bg-white dark:bg-gray-800">
-        <textarea id="descInput" rows="3" placeholder="Describe lo que vivimos..." class="w-full rounded-lg p-2 border border-pink-300 dark:border-gray-600 bg-white dark:bg-gray-800" required></textarea>
-        <div class="flex justify-end gap-2">
-          <button type="button" onclick="closeModal()" class="bg-gray-300 dark:bg-gray-700 px-4 py-2 rounded-lg">Cancelar</button>
-          <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600">Guardar</button>
-        </div>
-      </form>
+  <section class="memory">
+    <img src="https://i.imgur.com/7rQSDuvh.jpg" alt="Entrenando" />
+    <div class="memory-text">
+      <h2>🏋️ Entrenando juntos</h2>
+      <p>Ese día no fue solo ir al gym... fue entender que cuando estamos juntos, hasta el esfuerzo se siente más liviano. Me gusta cómo te enfocas, cómo me empujas a no rendirme. No sé si es el sudor o el amor, pero siempre salgo de ahí más motivado.</p>
     </div>
-  </div>
+  </section>
 
-  <script>
-    const fixedMemories = [
-      {
-        image: "https://i.imgur.com/7rQSDuvh.jpg",
-        title: "Sudando juntos, creciendo",
-        desc: "Cada gota de esfuerzo me recuerda lo fuerte que somos cuando estamos juntos. Así, entrenando, nos hacemos más invencibles."
-      },
-      {
-        image: "https://i.imgur.com/a68Wo5Kh.jpg",
-        title: "Rodando sin miedo",
-        desc: "Patinando con vos, sintiendo la libertad y la alegría que sólo tu compañía me da. Momentos que siempre quiero repetir."
-      },
-      {
-        image: "https://i.imgur.com/zaY9N85h.jpg",
-        title: "Esa salida que nunca olvido",
-        desc: "Esa noche caminando sin prisa, hablando de todo y nada, sintiendo que contigo el tiempo se detiene y todo está perfecto."
-      }
-    ];
+  <section class="memory">
+    <img src="https://i.imgur.com/a68Wo5Kh.jpg" alt="Patinando" />
+    <div class="memory-text">
+      <h2>🛼 Patinando</h2>
+      <p>No importa cuántas veces me caiga, mientras tú te rías conmigo y no de mí. Ese día fue de esos en los que uno se olvida del mundo. Solo éramos tú, yo, las ruedas y el viento diciéndonos que estábamos vivos.</p>
+    </div>
+  </section>
 
-    function openModal() {
-      document.getElementById("modal").classList.remove("hidden");
-    }
-
-    function closeModal() {
-      document.getElementById("modal").classList.add("hidden");
-      document.getElementById("memoryForm").reset();
-    }
-
-    function toggleMode() {
-      const html = document.documentElement;
-      html.classList.toggle('dark');
-      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-    }
-
-    function loadTheme() {
-      if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
-      }
-    }
-
-    function renderMemory({ image, title, date = '', desc }) {
-      return `
-        <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
-          <img src="${image}" alt="recuerdo" class="w-full h-64 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">${title}</h3>
-            ${date ? `<p class="text-sm text-gray-500 dark:text-gray-400">${date}</p>` : ''}
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">${desc}</p>
-          </div>
-        </div>`;
-    }
-
-    function loadMemories() {
-      const memoryGrid = document.getElementById("memoryGrid");
-      memoryGrid.innerHTML = fixedMemories.map(renderMemory).join("");
-      const memories = JSON.parse(localStorage.getItem("memories")) || [];
-      memories.forEach(mem => memoryGrid.innerHTML += renderMemory(mem));
-    }
-
-    document.getElementById("memoryForm").addEventListener("submit", async e => {
-      e.preventDefault();
-      const title = document.getElementById("titleInput").value;
-      const date = document.getElementById("dateInput").value;
-      const desc = document.getElementById("descInput").value;
-      const imageFile = document.getElementById("imageInput").files[0];
-      let image = "https://via.placeholder.com/400x300.png?text=Recuerdo";
-      if (imageFile) image = await toBase64(imageFile);
-
-      const newMemory = { title, date, desc, image };
-      const memories = JSON.parse(localStorage.getItem("memories")) || [];
-      memories.unshift(newMemory);
-      localStorage.setItem("memories", JSON.stringify(memories));
-      loadMemories();
-      closeModal();
-    });
-
-    const toBase64 = file => new Promise((res, rej) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => res(reader.result);
-      reader.onerror = error => rej(error);
-    });
-
-    window.onload = () => {
-      loadTheme();
-      loadMemories();
-    };
-  </script>
-
+  <section class="memory">
+    <img src="https://i.imgur.com/zaY9N85h.jpg" alt="Salida" />
+    <div class="memory-text">
+      <h2>🌆 Una salida más</h2>
+      <p>Puede parecer una foto cualquiera, pero tú y yo sabemos todo lo que pasó ese día. A veces solo se necesita una buena compañía, una calle cualquiera y esas miradas que dicen más que mil palabras. Esa fue una de esas salidas que no se olvidan.</p>
+    </div>
+  </section>
 </body>
+</html>
+
 </html>
