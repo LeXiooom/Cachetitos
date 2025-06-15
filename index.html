@@ -96,17 +96,23 @@
 
     function loadMemories() {
       const memories = JSON.parse(localStorage.getItem("memories")) || [];
-      // Agregar dinámicamente después de los recuerdos fijos
+      // Insertar sólo los recuerdos NUEVOS, no borrar los fijos
       memories.forEach(mem => {
-        memoryGrid.innerHTML += `
-          <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
+        // Verificar si ya existe para evitar duplicados
+        if (!document.getElementById(mem.id)) {
+          const card = document.createElement("div");
+          card.className = "card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform";
+          card.innerHTML = `
             <img src="${mem.image}" alt="recuerdo" class="w-full h-64 object-cover">
             <div class="p-4">
               <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">${mem.title}</h3>
               <p class="text-sm text-gray-500 dark:text-gray-400">${mem.date}</p>
               <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">${mem.description}</p>
             </div>
-          </div>`;
+          `;
+          card.id = mem.id;
+          memoryGrid.appendChild(card);
+        }
       });
     }
 
@@ -118,11 +124,25 @@
       const imageFile = document.getElementById("imageInput").files[0];
       let image = "https://via.placeholder.com/400x300.png?text=Recuerdo";
       if (imageFile) image = await toBase64(imageFile);
-      const newMemory = { title, date, description: desc, image };
+      // Crear id único para evitar duplicados
+      const id = 'mem-' + Date.now();
+      const newMemory = { id, title, date, description: desc, image };
       const memories = JSON.parse(localStorage.getItem("memories")) || [];
       memories.unshift(newMemory);
       localStorage.setItem("memories", JSON.stringify(memories));
-      loadMemories();
+      // Añadir directo a la galería sin recargar toda la lista
+      const card = document.createElement("div");
+      card.className = "card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform";
+      card.id = id;
+      card.innerHTML = `
+        <img src="${image}" alt="recuerdo" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">${title}</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">${date}</p>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">${desc}</p>
+        </div>
+      `;
+      memoryGrid.appendChild(card);
       closeModal();
     });
 
