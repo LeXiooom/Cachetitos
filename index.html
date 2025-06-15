@@ -9,7 +9,7 @@
   <style>
     body { font-family: 'Quicksand', sans-serif; }
     .dark body { background-color: #0f172a; }
-    .card:hover { transform: scale(1.02); }
+    .card:hover { transform: scale(1.02); transition: transform 0.3s ease; }
   </style>
 </head>
 <body class="bg-[#fffafc] dark:bg-[#0f172a] text-gray-800 dark:text-gray-100 transition duration-300">
@@ -26,30 +26,7 @@
 
   <!-- Galería -->
   <main id="memoryGrid" class="p-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto mt-6">
-    <!-- Recuerdos fijos -->
-    <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
-      <img src="https://i.imgur.com/7rQSDuvh.jpg" alt="Entrenando" class="w-full h-64 object-cover">
-      <div class="p-4">
-        <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">Sudando juntos, creciendo</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Cada gota de esfuerzo me recuerda lo fuerte que somos cuando estamos juntos. Así, entrenando, nos hacemos más invencibles.</p>
-      </div>
-    </div>
-
-    <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
-      <img src="https://i.imgur.com/a68Wo5Kh.jpg" alt="Patinando" class="w-full h-64 object-cover">
-      <div class="p-4">
-        <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">Rodando sin miedo</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Patinando con vos, sintiendo la libertad y la alegría que sólo tu compañía me da. Momentos que siempre quiero repetir.</p>
-      </div>
-    </div>
-
-    <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
-      <img src="https://i.imgur.com/zaY9N85h.jpg" alt="Salida" class="w-full h-64 object-cover">
-      <div class="p-4">
-        <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">Esa salida que nunca olvido</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Esa noche caminando sin prisa, hablando de todo y nada, sintiendo que contigo el tiempo se detiene y todo está perfecto.</p>
-      </div>
-    </div>
+    <!-- Los recuerdos se insertarán dinámicamente aquí -->
   </main>
 
   <!-- Pie de página -->
@@ -75,12 +52,32 @@
   </div>
 
   <script>
-    const memoryGrid = document.getElementById("memoryGrid");
-    const modal = document.getElementById("modal");
-    const form = document.getElementById("memoryForm");
+    const fixedMemories = [
+      {
+        image: "https://i.imgur.com/7rQSDuvh.jpg",
+        title: "Sudando juntos, creciendo",
+        desc: "Cada gota de esfuerzo me recuerda lo fuerte que somos cuando estamos juntos. Así, entrenando, nos hacemos más invencibles."
+      },
+      {
+        image: "https://i.imgur.com/a68Wo5Kh.jpg",
+        title: "Rodando sin miedo",
+        desc: "Patinando con vos, sintiendo la libertad y la alegría que sólo tu compañía me da. Momentos que siempre quiero repetir."
+      },
+      {
+        image: "https://i.imgur.com/zaY9N85h.jpg",
+        title: "Esa salida que nunca olvido",
+        desc: "Esa noche caminando sin prisa, hablando de todo y nada, sintiendo que contigo el tiempo se detiene y todo está perfecto."
+      }
+    ];
 
-    function openModal() { modal.classList.remove("hidden"); }
-    function closeModal() { modal.classList.add("hidden"); form.reset(); }
+    function openModal() {
+      document.getElementById("modal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+      document.getElementById("memoryForm").reset();
+    }
 
     function toggleMode() {
       const html = document.documentElement;
@@ -94,29 +91,26 @@
       }
     }
 
-    function loadMemories() {
-      const memories = JSON.parse(localStorage.getItem("memories")) || [];
-      // Insertar sólo los recuerdos NUEVOS, no borrar los fijos
-      memories.forEach(mem => {
-        // Verificar si ya existe para evitar duplicados
-        if (!document.getElementById(mem.id)) {
-          const card = document.createElement("div");
-          card.className = "card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform";
-          card.innerHTML = `
-            <img src="${mem.image}" alt="recuerdo" class="w-full h-64 object-cover">
-            <div class="p-4">
-              <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">${mem.title}</h3>
-              <p class="text-sm text-gray-500 dark:text-gray-400">${mem.date}</p>
-              <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">${mem.description}</p>
-            </div>
-          `;
-          card.id = mem.id;
-          memoryGrid.appendChild(card);
-        }
-      });
+    function renderMemory({ image, title, date = '', desc }) {
+      return `
+        <div class="card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform">
+          <img src="${image}" alt="recuerdo" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">${title}</h3>
+            ${date ? `<p class="text-sm text-gray-500 dark:text-gray-400">${date}</p>` : ''}
+            <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">${desc}</p>
+          </div>
+        </div>`;
     }
 
-    form.addEventListener("submit", async (e) => {
+    function loadMemories() {
+      const memoryGrid = document.getElementById("memoryGrid");
+      memoryGrid.innerHTML = fixedMemories.map(renderMemory).join("");
+      const memories = JSON.parse(localStorage.getItem("memories")) || [];
+      memories.forEach(mem => memoryGrid.innerHTML += renderMemory(mem));
+    }
+
+    document.getElementById("memoryForm").addEventListener("submit", async e => {
       e.preventDefault();
       const title = document.getElementById("titleInput").value;
       const date = document.getElementById("dateInput").value;
@@ -124,25 +118,12 @@
       const imageFile = document.getElementById("imageInput").files[0];
       let image = "https://via.placeholder.com/400x300.png?text=Recuerdo";
       if (imageFile) image = await toBase64(imageFile);
-      // Crear id único para evitar duplicados
-      const id = 'mem-' + Date.now();
-      const newMemory = { id, title, date, description: desc, image };
+
+      const newMemory = { title, date, desc, image };
       const memories = JSON.parse(localStorage.getItem("memories")) || [];
       memories.unshift(newMemory);
       localStorage.setItem("memories", JSON.stringify(memories));
-      // Añadir directo a la galería sin recargar toda la lista
-      const card = document.createElement("div");
-      card.className = "card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg transition-transform";
-      card.id = id;
-      card.innerHTML = `
-        <img src="${image}" alt="recuerdo" class="w-full h-64 object-cover">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold text-pink-600 dark:text-pink-300">${title}</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">${date}</p>
-          <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">${desc}</p>
-        </div>
-      `;
-      memoryGrid.appendChild(card);
+      loadMemories();
       closeModal();
     });
 
@@ -156,7 +137,7 @@
     window.onload = () => {
       loadTheme();
       loadMemories();
-    }
+    };
   </script>
 
 </body>
